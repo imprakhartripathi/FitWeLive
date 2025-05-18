@@ -21,4 +21,7 @@ export const NotificationUserSchema = new Schema<INotificationUser>(
   { timestamps: true }
 );
 
-export default mongoose.model<INotificationUser>("NotificationUser", NotificationUserSchema);
+export default mongoose.model<INotificationUser>(
+  "NotificationUser",
+  NotificationUserSchema
+);
