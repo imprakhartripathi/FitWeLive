@@ -5,6 +5,7 @@ export interface ITicket extends Document {
   generatorEmail: string;
   generatorPhone: string;
   description: string;
+  isResolved: boolean;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -15,6 +16,7 @@ export const TicketSchema = new Schema<ITicket>(
     generatorEmail: { type: String, required: true },
     generatorPhone: { type: String, required: true },
     description: { type: String, required: true },
+    isResolved: { type: Boolean, required: true, default: false}
   },
   { timestamps: true }
 );

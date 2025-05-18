@@ -1,10 +1,6 @@
 import mongoose, { Schema, Document } from "mongoose";
 import { ITicket, TicketSchema } from "./tickets";
 
-export interface ITicketExtended extends ITicket {
-  createdAt?: Date;
-  updatedAt?: Date;
-}
 
 export interface IAdmin extends Document {
   fullName: string;
@@ -15,7 +11,7 @@ export interface IAdmin extends Document {
   sex: string;
   notificationsOn: boolean;
   emailNotificationsOn: boolean;
-  tickets: ITicketExtended[];
+  tickets: ITicket[];
 }
 
 const AdminSchema = new Schema<IAdmin>({
