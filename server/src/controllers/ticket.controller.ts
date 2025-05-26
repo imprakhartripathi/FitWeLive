@@ -1,6 +1,9 @@
 import { Request, Response } from "express";
 import AdminModel, { IAdmin, ITicketSubdoc } from "../mongodb/schematics/admin";
 import { Types } from "mongoose";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 interface ITicket {
   _id: Types.ObjectId;
@@ -20,7 +23,7 @@ function getErrorMessage(error: unknown): string {
 export const createTicket = async (req: Request, res: Response): Promise<void> => {
   try {
     const { generatedBy, generatorEmail, generatorPhone, description } = req.body;
-    const adminEmail = "fitwelive@gmail.com";  // ← hard‑coded
+    const adminEmail = process.env.APP_MAIL as string; 
 
     if (!generatedBy || !generatorEmail || !generatorPhone || !description) {
       res.status(400).json({ error: "Missing required fields" });
