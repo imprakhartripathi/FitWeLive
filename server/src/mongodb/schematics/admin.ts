@@ -1,6 +1,21 @@
-import mongoose, { Schema, Document } from "mongoose";
+import mongoose, { Schema, Document, Types } from "mongoose";
 import { ITicket, TicketSchema } from "./tickets";
 
+export interface ITicketSubdoc extends Document {
+  generatedBy: string;
+  generatorEmail: string;
+  generatorPhone: string;
+  description: string;
+  isResolved: boolean;
+}
+
+const TicketSubSchema = new Schema<ITicketSubdoc>({
+  generatedBy: { type: String, required: true },
+  generatorEmail: { type: String, required: true },
+  generatorPhone: { type: String, required: true },
+  description: { type: String, required: true },
+  isResolved: { type: Boolean, default: false },
+});
 
 export interface IAdmin extends Document {
   fullName: string;
@@ -11,7 +26,7 @@ export interface IAdmin extends Document {
   sex: string;
   notificationsOn: boolean;
   emailNotificationsOn: boolean;
-  tickets: ITicket[];
+  tickets: Types.DocumentArray<ITicketSubdoc>;
 }
 
 const AdminSchema = new Schema<IAdmin>({
@@ -25,7 +40,7 @@ const AdminSchema = new Schema<IAdmin>({
   emailNotificationsOn: { type: Boolean, default: true },
 
   // Embeds TicketSchema, not just ObjectId
-  tickets: { type: [TicketSchema], default: [] },
+   tickets: [TicketSubSchema],
 });
 
 export default mongoose.model<IAdmin>("Admin", AdminSchema);
