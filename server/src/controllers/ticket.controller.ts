@@ -1,31 +1,26 @@
 import { Request, Response } from "express";
-import AdminModel, { IAdmin, ITicketSubdoc } from "../mongodb/schematics/admin";
-import { Types } from "mongoose";
+import AdminModel, { IAdmin, ITicketSubdoc, TicketSubdocSchema } from "../mongodb/schematics/admin";
+import mongoose, { Types } from "mongoose";
 import dotenv from "dotenv";
+import { sendTicketReceivedEmail, sendTicketResolvedEmail } from "./notification.controller";
 
 dotenv.config();
 
-interface ITicket {
-  _id: Types.ObjectId;
-  generatedBy: string;
-  generatorEmail: string;
-  generatorPhone: string;
-  description: string;
-  isResolved: boolean;
-}
-
-function getErrorMessage(error: unknown): string { 
+function getErrorMessage(error: unknown): string {
   if (error instanceof Error) return error.message;
   return String(error);
 }
 
-// Create ticket inside admin's tickets array
 export const createTicket = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { generatedBy, generatorEmail, generatorPhone, description } = req.body;
-    const adminEmail = process.env.APP_MAIL as string; 
+    const { generatedBy, generatorEmail, generatorPhone, dob, description } = req.body;
 
-    if (!generatedBy || !generatorEmail || !generatorPhone || !description) {
+    console.log("Received body:", req.body);
+    console.log("Parsed dob:", new Date(dob));
+
+    const adminEmail = process.env.APP_MAIL as string;
+
+    if (!generatedBy || !generatorEmail || !generatorPhone || !description || !dob) {
       res.status(400).json({ error: "Missing required fields" });
       return;
     }
@@ -41,15 +36,23 @@ export const createTicket = async (req: Request, res: Response): Promise<void> =
       generatedBy,
       generatorEmail,
       generatorPhone,
+      dob: new Date(dob),
       description,
       isResolved: false,
     };
 
-    admin.tickets.push(newTicket as ITicketSubdoc);
+    console.log("New ticket object:", newTicket);
+
+    // ✅ Push plain object; Mongoose will cast to subdoc
+    admin.tickets.push(newTicket);
+
     await admin.save();
+
+    await sendTicketReceivedEmail(generatedBy, generatorEmail);
 
     res.status(201).json(newTicket);
   } catch (error: unknown) {
+    console.error("Error creating ticket:", error);
     res.status(500).json({ error: "Server error", details: getErrorMessage(error) });
   }
 };
@@ -72,7 +75,6 @@ export const getTicket = async (req: Request, res: Response): Promise<void> => {
     const { id, email } = req.query;
 
     if (id) {
-      // Find ticket by id inside any admin's tickets array
       const admin = await AdminModel.findOne({ "tickets._id": id.toString() }, { "tickets.$": 1 });
       if (!admin || admin.tickets.length === 0) {
         res.status(404).json({ error: "Ticket not found" });
@@ -83,7 +85,6 @@ export const getTicket = async (req: Request, res: Response): Promise<void> => {
     }
 
     if (email) {
-      // Find all tickets with generatorEmail inside admins
       const admins = await AdminModel.find({ "tickets.generatorEmail": email.toString() }, { tickets: 1 });
       const tickets = admins.flatMap(admin =>
         admin.tickets.filter(ticket => ticket.generatorEmail === email.toString())
@@ -117,7 +118,6 @@ export const toggleTicketResolution = async (req: Request, res: Response): Promi
       return;
     }
 
-    // Find subdocument by id correctly
     const ticket = admin.tickets.id(id);
     if (!ticket) {
       res.status(404).json({ error: "Ticket not found" });
@@ -127,11 +127,19 @@ export const toggleTicketResolution = async (req: Request, res: Response): Promi
     ticket.isResolved = !ticket.isResolved;
     await admin.save();
 
+    // Format dob as dd-mm-yyyy
+    const dobString = ticket.dob instanceof Date
+      ? `${ticket.dob.getDate().toString().padStart(2, '0')}-${(ticket.dob.getMonth() + 1).toString().padStart(2, '0')}-${ticket.dob.getFullYear()}`
+      : "01011970"; // fallback
+
+    await sendTicketResolvedEmail(ticket.generatorEmail, ticket.generatedBy, dobString);
+
     res.json(ticket);
   } catch (error: unknown) {
     res.status(500).json({ error: "Server error", details: getErrorMessage(error) });
   }
 };
+
 // Delete ticket by ID from admin's tickets array
 export const deleteTicket = async (req: Request, res: Response): Promise<void> => {
   try {
@@ -141,14 +149,12 @@ export const deleteTicket = async (req: Request, res: Response): Promise<void> =
       return;
     }
 
-    // Find the admin owning this ticket
     const admin = await AdminModel.findOne({ "tickets._id": id });
     if (!admin) {
       res.status(404).json({ error: "Ticket not found" });
       return;
     }
 
-    // Remove ticket from array by id using pull()
     admin.tickets.pull(id);
     await admin.save();
 
@@ -157,4 +163,3 @@ export const deleteTicket = async (req: Request, res: Response): Promise<void> =
     res.status(500).json({ error: "Server error", details: getErrorMessage(error) });
   }
 };
-

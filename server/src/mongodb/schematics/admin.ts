@@ -1,21 +1,25 @@
 import mongoose, { Schema, Document, Types } from "mongoose";
 import { ITicket, TicketSchema } from "./tickets";
 
-export interface ITicketSubdoc extends Document {
+export interface ITicketSubdoc {
+  _id: mongoose.Types.ObjectId;
   generatedBy: string;
   generatorEmail: string;
   generatorPhone: string;
+  dob: Date; // <-- required Date here
   description: string;
   isResolved: boolean;
 }
 
-const TicketSubSchema = new Schema<ITicketSubdoc>({
+export const TicketSubdocSchema = new Schema<ITicketSubdoc>({
   generatedBy: { type: String, required: true },
   generatorEmail: { type: String, required: true },
   generatorPhone: { type: String, required: true },
+  dob: { type: Schema.Types.Date, required: true },
   description: { type: String, required: true },
-  isResolved: { type: Boolean, default: false },
+  isResolved: { type: Boolean, required: true, default: false }
 });
+
 
 export interface IAdmin extends Document {
   fullName: string;
@@ -39,8 +43,8 @@ const AdminSchema = new Schema<IAdmin>({
   notificationsOn: { type: Boolean, default: true },
   emailNotificationsOn: { type: Boolean, default: true },
 
-  // Embeds TicketSchema, not just ObjectId
-   tickets: [TicketSubSchema],
+  // Embeds TicketSchema, now with dob included
+  tickets: [TicketSubdocSchema],
 });
 
 export default mongoose.model<IAdmin>("Admin", AdminSchema);

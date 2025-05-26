@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import NotificationUserModel, { INotificationUser } from "../mongodb/schematics/notification.list";
+import { sendWelcomeEmail } from "./notification.controller";
 
 function getErrorMessage(error: unknown): string {
   return error instanceof Error ? error.message : String(error);
@@ -31,6 +32,8 @@ export const addNotificationUser = async (req: Request, res: Response): Promise<
 
     const created = new NotificationUserModel(newUser);
     await created.save();
+
+    await sendWelcomeEmail(fullName, email, service);
 
     res.status(201).json(created);
   } catch (error) {
