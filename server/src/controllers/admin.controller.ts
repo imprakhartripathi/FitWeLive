@@ -69,9 +69,7 @@ export const loginAdmin = async (req: Request, res: Response) => {
       return;
     }
 
-    const token = jwt.sign({ id: admin._id, email: admin.email }, jwtKey, {
-      expiresIn: "7d",
-    });
+    const token = jwt.sign({ id: admin._id, email: admin.email }, jwtKey);
 
     console.log("JWT Token Generated:", token);
 

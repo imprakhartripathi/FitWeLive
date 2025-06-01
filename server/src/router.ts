@@ -17,7 +17,7 @@ router.get("/notify/:id", notificationCtrl.getNotificationUserById);
 router.put("/notify/:id", notificationCtrl.updateNotificationUser);
 router.delete("/notify/:id", notificationCtrl.deleteNotificationUser);
 
-router.post("/register", registerAdmin);
+// router.post("/register", registerAdmin);
 router.post("/login", loginAdmin);
 router.put("/admin/:id", updateAdmin);
 router.delete("/admin/:id", deleteAdmin);
