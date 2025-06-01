@@ -165,7 +165,7 @@ const HomePage = () => {
       </FadeInSection>
 
       <footer className="footer">
-        <p>© 2025 FitWeLive. All rights reserved.</p>
+        <p>Copyrighted © 2025 by Archi Shukla Mishra & Adarsh Mishra. Site by Prakhar Tripathi.</p>
       </footer>
     </div>
   );
