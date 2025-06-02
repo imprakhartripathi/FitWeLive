@@ -1,6 +1,8 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import "./HomePage.sass";
+import Navbar from "../Navbar/Navbar";
+import Footer from "../Footer/Footer";
 
 const FadeInSection = ({ children }: { children: React.ReactNode }) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -22,15 +24,7 @@ const FadeInSection = ({ children }: { children: React.ReactNode }) => {
 const HomePage = () => {
   return (
     <div className="homepage">
-      <nav className="navbar">
-        <div className="logo">FitWeLive</div>
-        <ul className="nav-links">
-          <li>Home</li>
-          <li>Services</li>
-          <li>About Us</li>
-          <li>Contact Us</li>
-        </ul>
-      </nav>
+      <Navbar></Navbar>
 
       <section className="hero">
         <motion.h1
@@ -163,10 +157,7 @@ const HomePage = () => {
           </motion.button>
         </section>
       </FadeInSection>
-
-      <footer className="footer">
-        <p>Copyrighted © 2025 by Archi Shukla Mishra & Adarsh Mishra. Site by Prakhar Tripathi.</p>
-      </footer>
+      <Footer></Footer>
     </div>
   );
 };
