@@ -4,6 +4,7 @@ import "./HomePage.sass";
 import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
 import { useNavigate } from "react-router-dom";
+import servicesData from "../../assets/services.json"
 
 const FadeInSection = ({ children }: { children: React.ReactNode }) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -85,74 +86,8 @@ const HomePage = () => {
       <FadeInSection>
         <section className="services">
           <h2>What Services Do We Offer</h2>
-
           <div className="cards">
-            {[
-              {
-                title: "Personalized Diet Plans",
-                description:
-                  "Custom nutrition plans crafted to suit your body, preferences, and dietary needs.",
-                imageAlt: "Diet Plan",
-                imageAdd:
-                  "https://img.freepik.com/free-vector/diet-plan-schedule_3446-617.jpg?semt=ais_hybrid&w=740",
-              },
-              {
-                title: "Workout Programs",
-                description:
-                  "From beginner to advanced, exercise routines are tailored to match your fitness level and lifestyle.",
-                imageAlt: "Workout Program",
-                imageAdd:
-                  "https://img.freepik.com/free-vector/coaches-concept-illustration_114360-7939.jpg?semt=ais_items_boosted&w=740",
-              },
-              {
-                title: "Weight Loss Coaching",
-                description:
-                  "Get motivation, goal tracking, and expert advice for sustainable and healthy weight loss.",
-                imageAlt: "Weight Loss Coaching",
-                imageAdd:
-                  "https://img.freepik.com/free-vector/body-contouring-abstract-concept-illustration-non-surgical-plastic-body-correction-contouring-technology-reduction-aesthetic-treatment-service-non-invasive-procedure_335657-544.jpg?semt=ais_hybrid&w=740",
-              },
-              {
-                title: "Weight Gain Support",
-                description:
-                  "Safe and effective plans focused on building muscle mass and gaining weight in a healthy way.",
-                imageAlt: "Weight Gain Support",
-                imageAdd:
-                  "https://img.freepik.com/free-vector/body-mass-index-abstract-concept-vector-illustration-health-issue-diagnostics-weight-loss-program-body-mass-fat-index-healthy-bmi-calculation-formula-nutrition-plan-abstract-metaphor_335657-4039.jpg?semt=ais_hybrid&w=740",
-              },
-              {
-                title: "Health & Wellness Tracking",
-                description:
-                  "Monitor your fitness progress using digital tools and expert insights to stay on the right path.",
-                imageAlt: "Health Tracking",
-                imageAdd:
-                  "https://img.freepik.com/free-vector/fitness-trackers-flat-design_23-2148534977.jpg?semt=ais_hybrid&w=740",
-              },
-              {
-                title: "Mental Wellness",
-                description:
-                  "Mindfulness and stress management guidance to support your overall well-being.",
-                imageAlt: "Mental Wellness",
-                imageAdd:
-                  "https://img.freepik.com/free-vector/organic-flat-people-meditating-illustration_23-2148928222.jpg",
-              },
-              {
-                title: "Live Fitness Classes",
-                description:
-                  "Join real-time virtual workouts led by certified trainers, keeping you motivated and accountable from anywhere.",
-                imageAlt: "Live Fitness Classes",
-                imageAdd:
-                  "https://img.freepik.com/premium-photo/person-visiting-local-gym-fitness-facility-regular-workouts-while-traveling_1314467-48013.jpg",
-              },
-              {
-                title: "Fitness Challenges & Rewards",
-                description:
-                  "Participate in engaging fitness challenges and earn rewards for consistency, progress, and community participation.",
-                imageAlt: "Fitness Challenges",
-                imageAdd:
-                  "https://img.freepik.com/free-vector/winners-concept-illustration_114360-2119.jpg?semt=ais_hybrid&w=740",
-              },
-            ].map((service, idx) => (
+            {servicesData.map((service, idx) => (
               <div className="service-item" key={idx}>
                 <img src={service.imageAdd} alt={service.imageAlt} />
                 <h3>{service.title}</h3>
@@ -160,21 +95,6 @@ const HomePage = () => {
               </div>
             ))}
           </div>
-        </section>
-      </FadeInSection>
-
-      <FadeInSection>
-        <section className="testimonials">
-          <h2>Success Stories</h2>
-          <blockquote>
-            “FitWeLive transformed my life. I lost 30 kilos in 6 months while
-            gaining strength and confidence. The coaches truly care.” — someone.
-          </blockquote>
-          <blockquote>
-            “Thanks to FitWeLive’s personalized approach, I finally found a
-            workout plan that fits my busy schedule.” — Raj P.
-          </blockquote>
-          <blockquote>and many more.......</blockquote>
         </section>
       </FadeInSection>
 

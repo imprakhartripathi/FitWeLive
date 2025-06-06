@@ -1,0 +1,75 @@
+.about-container
+  margin: 0 auto
+  padding: 2rem
+  font-family: 'Segoe UI', sans-serif
+  color: #2c3e50
+
+h1
+  text-align: left
+  font-size: 2.5rem
+  margin-bottom: 1.5rem
+
+.summary
+  font-size: 1.1rem
+  line-height: 1.8
+  margin-bottom: 2rem
+  text-align: justify
+
+
+
+.coach-section
+  display: flex
+  align-items: center
+  gap: 2rem
+  margin: 3rem 0
+  flex-wrap: wrap
+
+  .coach-image
+    width: 350px
+    height: 350px
+    object-fit: cover
+    border-radius: 12px
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1)
+
+  .coach-info
+    flex: 1
+    h2
+      font-size: 2rem
+      margin-bottom: 1rem
+    p
+      font-size: 1.1rem
+      line-height: 1.8
+      text-align: justify
+
+.cta
+  background-color: #f0fdf4
+  border: 2px solid #27ae60
+  border-radius: 13px
+  padding: 2rem 1rem
+
+  h2
+    color: #27ae60
+
+  button
+    margin-top: 1rem
+    background-color: #27ae60
+    color: white
+    padding: 0.75rem 1.5rem
+    border: none
+    border-radius: 30px
+    font-size: 1rem
+    font-weight: bold
+    cursor: pointer
+
+
+@media (max-width: 768px)
+  .coach-section
+    flex-direction: column
+    text-align: center
+
+    .coach-image
+      width: 80%
+      height: auto
+
+    .coach-info
+      text-align: center

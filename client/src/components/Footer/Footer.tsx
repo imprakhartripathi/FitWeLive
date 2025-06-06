@@ -1,6 +1,9 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import "./Footer.sass";
+import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLock } from "@fortawesome/free-solid-svg-icons"; // ✅ Import icon correctly
 
 const FadeInSection = ({ children }: { children: React.ReactNode }) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -20,13 +23,18 @@ const FadeInSection = ({ children }: { children: React.ReactNode }) => {
 };
 
 const Footer = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="parent">
       <footer className="footer">
         <p>
-          Copyrighted © 2025 by Archi Shukla Mishra & Adarsh Mishra. Site by
+          Copyrighted © 2025 by Archi Shukla Mishra. Site by
           Prakhar Tripathi.
         </p>
+        <button onClick={() => navigate("/authadmin")}>
+          <FontAwesomeIcon icon={faLock} /> {/* ✅ Use icon object here */}
+        </button>
       </footer>
     </div>
   );
