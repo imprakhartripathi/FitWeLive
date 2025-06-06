@@ -1,6 +1,8 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import "./Navbar.sass";
+import logo from "../../assets/Horizontal_Logo-removebg-preview.png";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const FadeInSection = ({ children }: { children: React.ReactNode }) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -19,16 +21,43 @@ const FadeInSection = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-const Navbar= () => {
+const Navbar = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const isActive = (path: string) => location.pathname === path;
+
   return (
     <div className="parent">
       <nav className="navbar">
-        <div className="logo">FitWeLive</div>
+        <div className="logo">
+          <img src={logo} alt="Logo" onClick={() => navigate("/")} />
+        </div>
         <ul className="nav-links">
-          <li>Home</li>
-          <li>Services</li>
-          <li>About Us</li>
-          <li>Contact Us</li>
+          <li
+            className={isActive("/") ? "active" : ""}
+            onClick={() => navigate("/")}
+          >
+            Home
+          </li>
+          <li
+            className={isActive("/services") ? "active" : ""}
+            onClick={() => navigate("/services")}
+          >
+            Services
+          </li>
+          <li
+            className={isActive("/about") ? "active" : ""}
+            onClick={() => navigate("/about")}
+          >
+            About Us
+          </li>
+          <li
+            className={isActive("/contact") ? "active" : ""}
+            onClick={() => navigate("/contact")}
+          >
+            Contact Us
+          </li>
         </ul>
       </nav>
     </div>
