@@ -3,6 +3,26 @@ import "./AboutPage.sass";
 import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
 import archiImg from "../../assets/archi.jpg"; // Replace with actual image path
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
+
+
+const FadeInSection = ({ children }: { children: React.ReactNode }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 50 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+      className="fade-in-section"
+    >
+      {children}
+    </motion.div>
+  );
+};
 
 const About = () => {
   const navigate = useNavigate();
@@ -11,21 +31,29 @@ const About = () => {
     <div>
       <Navbar />
       <div className="about-container">
-        <h1>About FitWeLive</h1>
-        <p className="summary">
-          At <strong>Fit We Live</strong>, we started with a simple mission: to
-          make health and wellness accessible to everyone. From humble
-          beginnings as a small community fitness initiative, we've grown into a
-          dedicated platform that empowers people to take control of their
-          well-being — physically and mentally.
-          <br />
-          <br />
-          Our vision for the future includes expanding our services globally,
-          launching AI-powered coaching, and building a wellness ecosystem that
-          supports you every step of the way.
-        </p>
-
-        <hr />
+        <section className="hero">
+          <motion.h1
+            initial={{ opacity: 0, y: -30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            About FitWeLive
+          </motion.h1>
+          <p>
+            At <strong>Fit We Live</strong>, we started with a simple mission:
+            to make health and wellness accessible to everyone. From humble
+            beginnings as a small community fitness initiative, we've grown into
+            a dedicated platform that empowers people to take control of their
+            well-being — physically and mentally.
+          </p>
+          {/* <motion.button
+          onClick={() => navigate("/enroll")}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          Join Now
+        </motion.button> */}
+        </section>
 
         <div className="coach-section">
           <img src={archiImg} alt="Archi Mishra" className="coach-image" />
@@ -50,14 +78,22 @@ const About = () => {
           </div>
         </div>
 
+        <div className="vision">
+          <hr />
+          <p>
+            Our vision for the future includes expanding our services globally,
+            launching AI-powered coaching, and building a wellness ecosystem
+            that supports you every step of the way.
+          </p>
+        </div>
+
         <section className="cta">
           <h2>Get Started with Us Today</h2>
           <p>
             Take the first step towards a healthier, happier life with
             FitWeLive. Our team is ready to support you!
           </p>
-          <button
-            onClick={() => navigate("/enroll")}>
+          <button onClick={() => navigate("/enroll")}>
             Start Your Journey
           </button>
         </section>
