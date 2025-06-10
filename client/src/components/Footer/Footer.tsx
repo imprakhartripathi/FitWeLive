@@ -1,9 +1,12 @@
+import { Tooltip } from "react-tooltip"; // ✅ Correct import
+import "react-tooltip/dist/react-tooltip.css"; // ✅ Required CSS import
+
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import "./Footer.sass";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLock } from "@fortawesome/free-solid-svg-icons"; // ✅ Import icon correctly
+import { faLock } from "@fortawesome/free-solid-svg-icons";
 
 const FadeInSection = ({ children }: { children: React.ReactNode }) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -29,12 +32,19 @@ const Footer = () => {
     <div className="parent">
       <footer className="footer">
         <p>
-          Copyrighted © 2025 by Archi Shukla Mishra. Site by
-          Prakhar Tripathi.
+          Copyrighted © 2025 by Archi Shukla Mishra. Site by Prakhar Tripathi.
         </p>
-        <button onClick={() => navigate("/authadmin")}>
-          <FontAwesomeIcon icon={faLock} /> {/* ✅ Use icon object here */}
+
+        <button
+          data-tooltip-id="admin-tooltip"
+          data-tooltip-content="Admin Login"
+          onClick={() => navigate("/authadmin")}
+        >
+          <FontAwesomeIcon icon={faLock} />
         </button>
+
+        {/* ✅ Attach tooltip using ID */}
+        <Tooltip id="admin-tooltip" place="right" />
       </footer>
     </div>
   );
