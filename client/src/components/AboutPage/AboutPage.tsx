@@ -3,25 +3,25 @@ import "./AboutPage.sass";
 import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
 import archiImg from "../../assets/archi.jpg"; // Replace with actual image path
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+// import { useRef } from "react";
+import { motion } from "framer-motion";
 
-const FadeInSection = ({ children }: { children: React.ReactNode }) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+// const FadeInSection = ({ children }: { children: React.ReactNode }) => {
+//   const ref = useRef<HTMLDivElement>(null);
+//   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 50 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.8, ease: "easeOut" }}
-      className="fade-in-section"
-    >
-      {children}
-    </motion.div>
-  );
-};
+//   return (
+//     <motion.div
+//       ref={ref}
+//       initial={{ opacity: 0, y: 50 }}
+//       animate={isInView ? { opacity: 1, y: 0 } : {}}
+//       transition={{ duration: 0.8, ease: "easeOut" }}
+//       className="fade-in-section"
+//     >
+//       {children}
+//     </motion.div>
+//   );
+// };
 
 const About = () => {
   const navigate = useNavigate();
