@@ -57,11 +57,11 @@ const ContactPage = () => {
             <div className="cards-row">
               <div className="contact-card">
                 <h3>Email</h3>
-                <p>support@fitwelive.com</p>
+                <p>fitwelive@gmail.com</p>
               </div>
               <div className="contact-card">
                 <h3>Phone</h3>
-                <p>+91 98765 43210</p>
+                <p>+91 89602 90646</p>
               </div>
             </div>
           </section>
