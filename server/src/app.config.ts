@@ -3,7 +3,18 @@ import dotenv from "dotenv";
 dotenv.config();
 
 export const corsConfig = {
-  origin: `http://localhost:${process.env.CLIENT_PORT}` || "https://fitwelive.netlify.app/",
+  origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
+    const allowedOrigins = [
+      `http://localhost:${process.env.CLIENT_PORT}`,
+      "https://fitwelive.netlify.app"
+    ];
+
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
   credentials: true,
 };
 
