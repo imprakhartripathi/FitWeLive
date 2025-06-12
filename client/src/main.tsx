@@ -9,6 +9,8 @@ import NotFoundPage from "./components/NotFoundPage/NotFoundPage";
 import ServicesPage from "./components/ServicesPage/ServicesPage";
 import ContactPage from "./components/ContactPage/ContactPage";
 import EnrollPage from "./components/EnrollPage/EnrollPage";
+import LoginPage from "./components/LoginPage/LoginPage";
+import TicketsPage from "./components/TicketsPage/TicketsPage";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +32,14 @@ const router = createBrowserRouter([
   {
     path: "/enroll",
     element: <EnrollPage />,
+  },
+  {
+    path: "/authadmin",
+    element: <LoginPage />,
+  },
+  {
+    path: "/tickets",
+    element: <TicketsPage />,
   },
   {
     path: "*",

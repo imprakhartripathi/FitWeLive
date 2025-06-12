@@ -1,0 +1,62 @@
+.tickets-page
+  padding: 2rem
+  font-family: 'Segoe UI', sans-serif
+  height: auto
+  h1, .page-heading
+    text-align: center
+    margin-bottom: 2rem
+    color: #2c3e50
+    font-weight: 600
+
+.ticket-card
+  background-color: #ebfdf6 !important
+  transition: all 0.5s ease
+  border-left: 7px solid #27ae60
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08)
+  border-radius: 12px
+  padding: 0.5rem
+
+  .card-inside
+    background-color: #baffe5 !important
+    box-shadow: 0 !important
+    border-radius: 12px
+
+  &:hover
+    transition: all 0.5s ease
+    transform: translateY(-5px) !important
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12)
+
+
+.ticket-card.resolved
+  background-color: #cecdcd !important
+  border-left-color: #000000
+  opacity: 0.6
+
+  .card-inside
+    background-color: #ffffff !important
+    box-shadow: 0 !important
+    border-radius: 12px
+
+
+.tickets-loading
+  display: flex
+  justify-content: center
+  align-items: center
+  height: 100vh
+
+.logout-btn
+  transition: all 0.3s ease
+  &:hover
+    background-color: #ffe6e6
+    color: #d32f2f
+
+.resolve-btn
+  transition: background-color 0.3s ease
+  &:hover
+    background-color: #1e8449
+
+.ticket-grid
+  display: grid
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr))
+  gap: 1.5rem
+  margin-top: 2rem
