@@ -6,7 +6,6 @@ import archiImg from "../../assets/archi.jpg"; // Replace with actual image path
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 
-
 const FadeInSection = ({ children }: { children: React.ReactNode }) => {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
@@ -30,31 +29,25 @@ const About = () => {
   return (
     <div>
       <Navbar />
-      <div className="about-container">
-        <section className="hero">
-          <motion.h1
-            initial={{ opacity: 0, y: -30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            About FitWeLive
-          </motion.h1>
-          <p>
-            At <strong>Fit We Live</strong>, we started with a simple mission:
-            to make health and wellness accessible to everyone. From humble
-            beginnings as a small community fitness initiative, we've grown into
-            a dedicated platform that empowers people to take control of their
-            well-being — physically and mentally.
-          </p>
-          {/* <motion.button
+
+      <section className="hero">
+        <motion.h1
+          initial={{ opacity: 0, y: -30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          About FitWeLive
+        </motion.h1>
+        <p>How We Got Here?</p>
+        {/* <motion.button
           onClick={() => navigate("/enroll")}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
           Join Now
         </motion.button> */}
-        </section>
-
+      </section>
+      <div className="about-container">
         <div className="coach-section">
           <img src={archiImg} alt="Archi Mishra" className="coach-image" />
           <div className="coach-info">
@@ -84,6 +77,13 @@ const About = () => {
             Our vision for the future includes expanding our services globally,
             launching AI-powered coaching, and building a wellness ecosystem
             that supports you every step of the way.
+            <br />
+            <br />
+            At <strong>Fit We Live</strong>, we started with a simple mission:
+            to make health and wellness accessible to everyone. From humble
+            beginnings as a small community fitness initiative, we've grown into
+            a dedicated platform that empowers people to take control of their
+            well-being — physically and mentally.
           </p>
         </div>
 

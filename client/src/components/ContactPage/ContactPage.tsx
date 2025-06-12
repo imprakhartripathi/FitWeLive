@@ -29,21 +29,20 @@ const ContactPage = () => {
     <div>
       <Navbar />
 
-      <div className="about-container">
-        <section className="hero">
-          <motion.h1
-            initial={{ opacity: 0, y: -30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            Contact Us
-          </motion.h1>
-          <p>Have any questions? We're here to help you.</p>
-        </section>
+      <section className="hero">
+        <motion.h1
+          initial={{ opacity: 0, y: -30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          Contact Us
+        </motion.h1>
+        <p>Have any questions? We're here to help you.</p>
+      </section>
 
+      <div className="about-container">
         <FadeInSection>
           <section className="desc">
-            <hr />
             <p>
               Whether you're curious about features, a free trial, or even
               press—we’re ready to answer any and all questions. Reach out and
