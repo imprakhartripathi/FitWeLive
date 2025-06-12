@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 export const corsConfig = {
-  origin: `http://localhost:${process.env.CLIENT_PORT}`,
+  origin: `http://localhost:${process.env.CLIENT_PORT}` || "https://fitwelive.netlify.app/",
   credentials: true,
 };
 
