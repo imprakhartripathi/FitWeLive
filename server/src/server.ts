@@ -14,6 +14,10 @@ app.use(cors(corsConfig));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.get('/ping', (req, res) => {
+  res.status(200).send('01110000 01101111 01101110 01100111');
+});
+
 app.use(router);
 // Connect to MongoDB
 connectMongoDB();
