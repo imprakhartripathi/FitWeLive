@@ -16,6 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.get('/ping', (req, res) => {
   res.status(200).send('01110000 01101111 01101110 01100111');
+  console.log("Everything Good");
 });
 
 app.use(router);
